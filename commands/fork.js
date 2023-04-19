@@ -75,7 +75,7 @@ function* fork (context, heroku) {
   let slug   = yield apps.getLastSlug(oldApp);
 
   if (stopping) { return; }
-  let newApp = yield apps.createNewApp(oldApp, toAppName, context.flags.region);
+  let newApp = yield apps.createNewApp(oldApp, toAppName, context.flags.region, context.flags.space);
   deleteAppOnFailure = newApp.name;
 
   if (stopping) { return; }
@@ -125,6 +125,7 @@ Example:
   flags: [
     {name: 'confirm', description: 'overwrite existing config vars or existing add-on attachments', hasValue: true},
     {name: 'region', description: 'specify a region', hasValue: true},
+    {name: 'space', description: 'specify a space', hasValue: true},
     {name: 'skip-pg', description: 'skip postgres databases', hasValue: false},
     {name: 'from', description: 'app to fork from', hasValue: true},
     {name: 'to', description: 'app to create', hasValue: true},
